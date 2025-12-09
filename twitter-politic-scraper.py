@@ -1,7 +1,7 @@
 """
 twitter-politic-scraper.py
 
-Simple script using selenium and undetected-chromedriver to scrape political tweets from Twitter/X.
+Script using selenium and undetected-chromedriver to scrape political tweets from X.
 
 Usage:
    py twitter-politic-scraper.py 
@@ -18,7 +18,6 @@ from selenium.webdriver.common.keys import Keys
 import time
 import undetected_chromedriver as uc
 
-#ensures a fresh profile to keep from twitter bot detection ruining scraper
 USER_DATA_DIR = r"C:/temp/ucprofile"  
 
 def find(elem, xpath):

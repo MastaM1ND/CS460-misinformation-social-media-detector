@@ -121,14 +121,42 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     #load csv file to infer
-    df = pd.read_csv(args.csv, encoding="latin-1")
+    try:
+        df = pd.read_csv(args.csv, encoding="utf-8-sig")
+    except UnicodeDecodeError:
+        print("Failed to decode utf-8-sig, falling back to latin-1.")
+        df = pd.read_csv(args.csv, encoding="latin-1")
 
-    df.columns = df.columns.str.strip().str.lower()
+    df.columns = df.columns.str.replace('\ufeff', '', regex=False).str.strip().str.lower()
     
     print(f"Columns found in CSV: {df.columns.tolist()}")
 
     if "text" not in df.columns:
         raise ValueError("CSV must contain a 'text' column")
+    
+    def is_mostly_english(text, threshold=0.80):
+        """
+        Check if the text is mostly English characters.
+        
+        :param text: Text string to check
+        :return: True if mostly English, False otherwise
+        """
+        if not isinstance(text, str) or len(text) == 0:
+            return False
+        ascii_count = sum(1 for char in text if ord(char) < 128)
+        
+        #keep only if above threshold
+        ascii_ratio = ascii_count / len(text)
+        return ascii_ratio >= threshold
+    
+    initial_count = len(df)
+
+    df = df[df['text'].apply(is_mostly_english)].copy()
+
+    #filter out non-english text in dataframe
+    filtered_count = len(df)
+    print(f"Filtered out {initial_count - filtered_count} entries containing too many non-ASCII characters.")
+    print(f"{filtered_count} entries remaining for inference.")
 
     #load the model's tokenizer
     tokenizer = AutoTokenizer.from_pretrained(args.model_dir)
