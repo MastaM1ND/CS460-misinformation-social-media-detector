@@ -121,7 +121,12 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     #load csv file to infer
-    df = pd.read_csv(args.csv)
+    df = pd.read_csv(args.csv, encoding="latin-1")
+
+    df.columns = df.columns.str.strip().str.lower()
+    
+    print(f"Columns found in CSV: {df.columns.tolist()}")
+
     if "text" not in df.columns:
         raise ValueError("CSV must contain a 'text' column")
 

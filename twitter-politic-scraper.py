@@ -2,6 +2,13 @@
 twitter-politic-scraper.py
 
 Simple script using selenium and undetected-chromedriver to scrape political tweets from Twitter/X.
+
+Usage:
+   py twitter-politic-scraper.py 
+        --output_csv output.csv
+        --search_query "politics" 
+        --amount 500 
+        --scroll_pause 4
 """
 
 import argparse
@@ -69,31 +76,28 @@ def find_tweet_text(tweet_element):
 
 def scrape_twitter(output_file, search_query, amount, scroll_pause):
     """
-    Docstring for scrape_twitter
+    Scrapes tweets from X based on a search query.
     
-    :param output_file: Description
-    :param search_query: Description
-    :param amount: Description
-    :param scroll_pause: Description
+    :param output_file: output CSV file
+    :param search_query: Search query string for Twitter/X
+    :param amount: Number of tweets to scrape
+    :param scroll_pause: Pause duration between scrolls (seconds)
     """
-    print("Launching undetected Chrome...")
     options = uc.ChromeOptions()
     options.add_argument("--no-first-run")
     options.add_argument("--no-service-autorun")
-    options.add_argument(f"--user-data-dir={USER_DATA_DIR}")
 
     driver = uc.Chrome(options=options, version_main=142)
     driver.set_window_size(1100, 900)
 
     driver.get("https://twitter.com/login")
     time.sleep(4)
-    input("\nLog in to Twitter/X manually, then press ENTER here...\n")
+    input("\nLog in to X, then press ENTER here...\n")
 
     search_url = f"https://twitter.com/search?q={search_query}&src=typed_query&f=live"
     driver.get(search_url)
     time.sleep(4)
 
-    print(f"Scraping tweets for query: {search_query}... (ONLY original posts)")
     rows = []
     seen_texts = set()
     last_count = 0
@@ -120,7 +124,7 @@ def scrape_twitter(output_file, search_query, amount, scroll_pause):
                 replies = find(t, ".//*[@data-testid='reply']")
                 retweets = find(t, ".//*[@data-testid='retweet']")
                 likes = find(t, ".//*[@data-testid='like']")
-                views = find(t, ".//*[@data-testid='view']")
+                views = find(t, ".//div[contains(@aria-label, 'views')]")
 
                 rows.append({
                     "text": text,
