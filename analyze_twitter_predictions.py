@@ -142,13 +142,13 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
         'Average Capitalization Ratio'
     ]
 
-    print("1. Average Text Metrics by Prediction Class")
+    print("Average Text Metrics by Prediction Class")
    
     print(avg_metrics_df.to_markdown(index=False, floatfmt=(".0f", ".0f", ".2f")))
     
     plt.figure(figsize=(9, 5)) 
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average Text Length (Chars)'], 
-             color=['#4C72B0', '#DD8452', '#55A868'][:len(all_labels)])
+             color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average Text Length by Prediction Class') 
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
@@ -159,7 +159,7 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
     
     plt.figure(figsize=(9, 5))
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average Readability (Grade Level)'], 
-             color=['#55A868', '#DD8452', '#4C72B0'][:len(all_labels)])
+             color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average Readability (Flesch-Kincaid Grade Level)')
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
@@ -170,7 +170,7 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
 
     plt.figure(figsize=(9, 5))
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average Hashtags per Post'], 
-             color=['#DD8452', '#4C72B0', '#55A868'][:len(all_labels)])
+             color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average Hashtags per Post by Prediction Class')
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
@@ -181,7 +181,7 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
 
     plt.figure(figsize=(9, 5))
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average Mentions per Post'], 
-             color=['#4C72B0', '#55A868', '#DD8452'][:len(all_labels)])
+             color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average Mentions per Post by Prediction Class')
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
@@ -192,7 +192,7 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
 
     plt.figure(figsize=(9, 5))
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average URLs per Post'],
-                color=['#55A868', '#4C72B0', '#DD8452'][:len(all_labels)])
+                color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average URLs per Post by Prediction Class')
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
@@ -203,7 +203,7 @@ def analyze_predictions(input_file, text_column, prediction_column, top_keywords
 
     plt.figure(figsize=(9, 5))
     plt.bar(avg_metrics_df['Prediction Class'], avg_metrics_df['Average Capitalization Ratio'],
-                color=['#DD8452', '#55A868', '#4C72B0'][:len(all_labels)])
+                color=["#E33636", '#DD8452', '#55A868'][:len(all_labels)])
     plt.title('Average Capitalization Ratio by Prediction Class')
     plt.xlabel('Prediction Class')
     plt.xticks(ticks=all_labels, labels="False Misinformed True".split()[:len(all_labels)])
