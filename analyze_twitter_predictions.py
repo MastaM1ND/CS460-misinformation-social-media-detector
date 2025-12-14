@@ -2,11 +2,11 @@
 Analyzes Twitter prediction results from a CSV file.
 
 Usage:
-    python analyze_twitter_predictions.py 
+    py analyze_twitter_predictions.py 
         --input_file predictions.csv 
         --text_column text 
         --prediction_column prediction 
-        --top_keywords 15
+        --top_keywords 10
 """
 
 import argparse
