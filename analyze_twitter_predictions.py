@@ -2,10 +2,10 @@
 Analyzes Twitter prediction results from a CSV file.
 
 Usage:
-    py analyze_twitter_predictions.py 
-        --input_file predictions.csv 
-        --text_column text 
-        --prediction_column prediction 
+    py analyze_twitter_predictions.py `
+        --input_file predictions.csv `
+        --text_column text `
+        --prediction_column prediction `
         --top_keywords 10
 """
 
@@ -83,11 +83,11 @@ def calculate_readability(text):
 
     :param text: Text string to calculate readability for
     """
-    # Texts must have at least a few words for meaningful calculation
+    #texts must have at least a few words for meaningful calculation
     if not isinstance(text, str) or len(text.split()) < 5:
         return 0.0
     try:
-        # Returns the US grade level required to understand the text
+        #returns the US grade level required to understand the text
         return textstat.flesch_kincaid_grade(text)
     except:
         return 0.0
